@@ -3,6 +3,7 @@ dotenv.config()
 import express from "express";
 const app = express();
 import productRoutes from "./routes/productRoutes.js";
+import UserRoutes from "./routes/userRoutes.js";
 import cors from "cors";
 import connectDB from "./config/db.js";
 import {notFound, errorHandler} from "./middleware/errorMiddleware.js";
@@ -10,10 +11,12 @@ import {notFound, errorHandler} from "./middleware/errorMiddleware.js";
 connectDB();
 
 app.use(cors());
+app.use(express.json())
 
 app.use("/api/products", productRoutes);
+app.use("/api/users",UserRoutes);
 
-app.use(notFound)
+app.use(notFound);
 app.use(errorHandler);
 
 app.listen(8080, ()=>{
