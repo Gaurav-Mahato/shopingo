@@ -37,6 +37,30 @@ const getUserProfile = asyncHandler(async(req,res) => {
     }
 })
 
+const updateUserProfile = asyncHandler(async(req,res) => {
+    const user = await User.findById(req.user._id);
+    const salt = bcrypt.genSalt(10)
+    if(user){
+        user.name = req.body.name
+        user.email = req.body.email
+        if(req.body.password){
+            user.password = bcrypt.hash(req.body.password,salt)
+        }
+        const updatedUser = await user.save()
+        res.json({
+            _id: updatedUser._id,
+            name: updatedUser.name,
+            email: updatedUser.email,
+            isAdmin: updatedUser.isAdmin,
+            token: generateToken(user._id)
+        })    
+    }
+    else{
+        res.status(404);
+        throw new Error('User not found')
+    }
+})
+
 const registerUser = asyncHandler(async(req,res) => {
     const {name,email,password} = req.body;
     const userExists = await User.findOne({email});
@@ -65,4 +89,4 @@ const registerUser = asyncHandler(async(req,res) => {
     }
 })
 
-export {authUser, getUserProfile, registerUser}
+export {authUser, getUserProfile, registerUser, updateUserProfile}
