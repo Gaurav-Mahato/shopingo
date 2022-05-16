@@ -9,6 +9,7 @@ import ProductScreen from "../screens/ProductScreen";
 import CartScreen from "../screens/CartScreen";
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
+import ProfileScreen from "../screens/ProfileScreen";
 
 class App extends React.Component{
     render(){
@@ -22,6 +23,7 @@ class App extends React.Component{
                     <Route path="/product/:id" component={ProductScreen} />
                     <Route path="/cart/:id?" component={CartScreen} />
                     <Route path="/login" component={LoginScreen} />
+                    <Route path="/profile" component={ProfileScreen} />
                   </Container>
                 </main>
                 <Footer />
