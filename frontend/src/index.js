@@ -9,10 +9,17 @@ import thunk from "redux-thunk";
 
 const cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [];
 const userInfoFromStorage = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : undefined;
+const shippingAddressFromStorage = localStorage.getItem('shippingAddress') ? JSON.parse(localStorage.getItem('shippingAddress')) : {
+    address: "",
+    city: "",
+    postalCode: "",
+    country: ""
+};
 
 const initialState = {
     cart: {
-        cartItems: cartItemsFromStorage
+        cartItems: cartItemsFromStorage,
+        shippingAddress: shippingAddressFromStorage
     },
     userLogin: {
         userInfo: userInfoFromStorage
