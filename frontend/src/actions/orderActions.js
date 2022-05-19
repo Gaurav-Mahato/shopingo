@@ -1,0 +1,27 @@
+import { ORDER_CREATE_REQUEST, ORDER_CREATE_SUCCESS, ORDER_CREATE_FAILURE } from "./types"
+import axios from 'axios'
+
+export const createOrder = (order) => async(dispatch, getState) => {
+    const {userLogin : {userInfo}} = getState()
+    try{
+        dispatch({
+            type: ORDER_CREATE_REQUEST
+        })
+        const config = {
+            headers:{
+                'Content-Type': "application/json",
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+        const {data} = await axios.post(`http://localhost:8080/api/orders`,order,config)
+        dispatch({
+            type: ORDER_CREATE_SUCCESS,
+            payload: data
+        })
+
+        
+    }
+    catch(error){
+        dispatch({type: ORDER_CREATE_FAILURE, payload: error.message});
+    }
+}
