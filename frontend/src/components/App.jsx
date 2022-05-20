@@ -13,6 +13,7 @@ import ProfileScreen from "../screens/ProfileScreen";
 import ShippingScreen from "../screens/ShippingScreen"
 import PaymentScreen from "../screens/PaymentScreen";
 import PlaceOrderScreen from "../screens/PlaceOrderScreen";
+import OrderScreen from "../screens/OrderScreen";
 
 class App extends React.Component{
     render(){
@@ -21,6 +22,7 @@ class App extends React.Component{
                 <Header />
                 <main className="py-3">
                   <Container>
+                    <Route path="/order/:id" component={OrderScreen} />
                     <Route path="/register" component={RegisterScreen} />
                     <Route exact path="/" component={HomeScreen} />
                     <Route path="/product/:id" component={ProductScreen} />
