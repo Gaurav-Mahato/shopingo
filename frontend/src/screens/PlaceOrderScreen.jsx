@@ -22,7 +22,7 @@ const PlaceOrderScreen = ({history}) => {
 
     const {order, success, error} = useSelector(state => state.orderCreate)
     const placeOrderHandler = () => {
-        dispatch(createOrder({
+        const result = {
             orderItems: cartItems,
             shippingAddress,
             paymentMethod,
@@ -30,7 +30,8 @@ const PlaceOrderScreen = ({history}) => {
             taxPrice,
             shippingPrice,
             totalPrice,
-        }))
+        }
+        dispatch(createOrder(result))
     }
     useEffect(() => {
         if(success){
