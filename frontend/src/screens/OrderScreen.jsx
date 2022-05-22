@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {Button, Row, Col, Image, ListGroup, Card } from "react-bootstrap"
+import { Row, Col, Image, ListGroup, Card } from "react-bootstrap"
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import {useDispatch, useSelector} from "react-redux"
@@ -13,6 +13,12 @@ const OrderScreen = ({match}) => {
     const {order, loading, error} = useSelector(state => state.orderDetails)
     const {orderItems, shippingAddress, paymentMethod, taxPrice, totalPrice,shippingPrice} = order
     const {address, city, postalCode, country} = shippingAddress
+    useEffect(() => {
+        if(!order || order._id !== orderId) {
+            dispatch(getOrderDetails(orderId))
+        }
+    }, [dispatch, orderId, order]) 
+    
     if(!loading){
         const addDecimals = (num) => {
             return Math.round((num*100)/100).toFixed(2)
@@ -20,9 +26,7 @@ const OrderScreen = ({match}) => {
         order.itemsPrice = addDecimals(order.orderItems.reduce((acc,item) => acc + item.price * item.qty,0))
     }
 
-    useEffect(() => {
-        dispatch(getOrderDetails(orderId))
-    },[dispatch,orderId])
+    
     return loading ? <Loader /> : error ? <Message variant="danger" message={error} /> : <>
         <h1>Order {order._id}</h1>
         <Row>
