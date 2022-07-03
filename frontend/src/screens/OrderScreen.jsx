@@ -4,13 +4,16 @@ import Message from "../components/Message";
 import Loader from "../components/Loader"
 import {useDispatch, useSelector} from "react-redux"
 import { Link } from "react-router-dom";
-import { getOrderDetails } from "../actions/orderActions";
+import { getOrderDetails, payOrder } from "../actions/orderActions";
+import { ORDER_PAY_RESET } from "../actions/types";
 
 const OrderScreen = ({match}) => {
     const orderId = match.params.id
     const dispatch = useDispatch()
     const orderDetails = useSelector(state => state.orderDetails)
     const {order, loading, error} = orderDetails
+    const orderPay = useSelector(state => state.orderPay)
+    const {success} = orderPay 
     const addDecimals = (num) => {
         return Math.round((num*100)/100).toFixed(2)
     }  
@@ -20,8 +23,14 @@ const OrderScreen = ({match}) => {
         )
     }
     useEffect(() => {
-        dispatch(getOrderDetails(orderId))
-    },[dispatch])
+        if(!order || order._id !== orderId || success) {
+            dispatch({type: ORDER_PAY_RESET})
+            dispatch(getOrderDetails(orderId))
+        }
+    }, [order, orderId,success]) 
+    const successPaymentHandler = () => {
+        dispatch(payOrder(orderId))
+    }
     return loading ? <Loader /> : error ? <Message variant="danger" message={error} /> : <>
         <h1>Order {orderId}</h1>
           <Row>
@@ -97,7 +106,9 @@ const OrderScreen = ({match}) => {
                                   <Col>${addDecimals(order.totalPrice)}</Col>
                               </Row>
                           </ListGroup.Item>
-                          
+                          {!order.isPaid && <ListGroup.Item>
+                            <Button onClick={successPaymentHandler}>Pay ${addDecimals(order.totalPrice)}</Button>
+                          </ListGroup.Item>}
                       </ListGroup>
                   </Card>
               </Col>
