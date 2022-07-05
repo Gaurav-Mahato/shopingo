@@ -1,5 +1,5 @@
 import { addOrderItems, getMyOrders, getOrderById, updateOrderToPaid } from "../controllers/orderController.js";
-import protect from "../middleware/authMiddleware.js";
+import {protect} from "../middleware/authMiddleware.js";
 import express from "express"
 
 const router = express.Router()

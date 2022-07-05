@@ -14,6 +14,8 @@ import ShippingScreen from "../screens/ShippingScreen"
 import PaymentScreen from "../screens/PaymentScreen";
 import PlaceOrderScreen from "../screens/PlaceOrderScreen";
 import OrderScreen from "../screens/OrderScreen";
+import UserListScreen from "../screens/UserListScreen";
+import UserEditScreen from "../screens/UserEditScreen";
 
 class App extends React.Component{
     render(){
@@ -32,6 +34,8 @@ class App extends React.Component{
                     <Route path="/shipping" component={ShippingScreen} />
                     <Route path="/payment" component={PaymentScreen} />
                     <Route path="/place-order" component={PlaceOrderScreen} />
+                    <Route path="/admin/userlist" component={UserListScreen} />
+                    <Route path="/admin/user/:id/edit" component={UserEditScreen} />
                   </Container>
                 </main>
                 <Footer />
