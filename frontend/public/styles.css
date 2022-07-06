@@ -16,3 +16,7 @@ h2{
 .rating span{
     margin: 0.1rem;
 }
+#create-product-button{
+    display: flex;
+    justify-content: flex-end;
+}

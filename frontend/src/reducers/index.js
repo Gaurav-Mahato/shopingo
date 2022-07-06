@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import productListReducer from "./productReducer";
+import {productListReducer, productDeleteReducer} from "./productReducer";
 import productDetailsReducer from "./productDetailReducer";
 import { cartReducer } from "./cartReducer";
 import { userLoginReducer, userRegisterReducer, userDetailsReducer, userProfileUpdateReducer, userListReducer, userDeleteReducer, userUpdateReducer } from "./userReducer";
@@ -19,5 +19,6 @@ export default combineReducers({
     orderMyList: orderMyListReducer,
     userList: userListReducer,
     userDelete: userDeleteReducer,
-    userUpdate: userUpdateReducer
+    userUpdate: userUpdateReducer,
+    productDelete: productDeleteReducer
 })
