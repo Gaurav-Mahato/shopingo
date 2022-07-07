@@ -1,5 +1,5 @@
 import axios from "axios";
-import { PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_DETAIL_REQUEST, PRODUCT_DETAIL_SUCCESS, PRODUCT_DETAIL_FAIL, PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_SUCCESS, PRODUCT_DELETE_FAILURE } from "./types";
+import { PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_DETAIL_REQUEST, PRODUCT_DETAIL_SUCCESS, PRODUCT_DETAIL_FAIL, PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_SUCCESS, PRODUCT_DELETE_FAILURE, PRODUCT_UPDATE_REQUEST, PRODUCT_UPDATE_FAILURE, PRODUCT_UPDATE_SUCCESS } from "./types";
 
 
 export const listProducts = () => async (dispatch) => {
@@ -37,5 +37,22 @@ export const deleteProduct = (id) => async(dispatch,getState) => {
         dispatch({type: PRODUCT_DELETE_SUCCESS})
     }catch(err){
         dispatch({type: PRODUCT_DELETE_FAILURE, payload: err})
+    }
+}
+
+export const updateProduct = (product) => async(dispatch,getState) => {
+    const {userLogin: {userInfo}} = getState()
+    try{
+        dispatch({type: PRODUCT_UPDATE_REQUEST})
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+        const {data} = await axios.put(`http://localhost:8080/api/products/${product._id}`,product,config) 
+        dispatch({type: PRODUCT_UPDATE_SUCCESS, payload: data})   
+    }catch(err){
+        dispatch({type: PRODUCT_UPDATE_FAILURE, payload: err})
     }
 }
