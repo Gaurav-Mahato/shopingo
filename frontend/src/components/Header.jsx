@@ -4,6 +4,8 @@ import "./bootstrap.min.css";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import { logout } from "../actions/userActions";
+import { SearchBox } from "./SearchBox";
+import {Route} from "react-router-dom"
 
 const Header = () => {
   let userLogin = useSelector(state => state.userLogin)
@@ -19,7 +21,8 @@ const Header = () => {
                <Link to="/" style={{textDecoration: "none"}}><Navbar.Brand>ShopinGo</Navbar.Brand></Link>
               
            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-           <Navbar.Collapse id="basic-navbar-nav">
+           <Navbar.Collapse id="basic-navbar-nav"> 
+               <Route render={({history}) => <SearchBox history={history} />} />
                <Nav style={{marginLeft: "auto"}}>
                   <Nav.Link href="/cart"><i className="fas fa-shopping-cart"></i>Cart</Nav.Link>
                   {userInfo !== undefined && userInfo !== null ? (

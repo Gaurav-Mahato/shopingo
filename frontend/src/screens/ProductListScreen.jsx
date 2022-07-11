@@ -13,7 +13,6 @@ const ProductListScreen = ({history, match}) => {
     const {success: successDelete, loading: loadingDelete, error: errorDelete} = useSelector(state => state.productDelete)
     useEffect(() => {
         if(userInfo && userInfo.isAdmin){
-            console.log("User detected")
             dispatch(listProducts())
         }else{
             history.push('/login')

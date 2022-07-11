@@ -74,7 +74,7 @@ const ProductEditScreen = ({match,history}) => {
         setUploading(false)
       }
       catch(err){
-        console.log(err)
+        console.error(err)
         setUploading(false)
       }
     }
