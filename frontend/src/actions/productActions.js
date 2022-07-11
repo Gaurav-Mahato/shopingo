@@ -1,5 +1,5 @@
 import axios from "axios";
-import { PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_DETAIL_REQUEST, PRODUCT_DETAIL_SUCCESS, PRODUCT_DETAIL_FAIL, PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_SUCCESS, PRODUCT_DELETE_FAILURE, PRODUCT_UPDATE_REQUEST, PRODUCT_UPDATE_FAILURE, PRODUCT_UPDATE_SUCCESS, PRODUCT_CREATE_REVIEW_REQUEST, PRODUCT_CREATE_REVIEW_SUCCESS, PRODUCT_CREATE_REVIEW_FAILURE } from "./types";
+import { PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_DETAIL_REQUEST, PRODUCT_DETAIL_SUCCESS, PRODUCT_DETAIL_FAIL, PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_SUCCESS, PRODUCT_DELETE_FAILURE, PRODUCT_UPDATE_REQUEST, PRODUCT_UPDATE_FAILURE, PRODUCT_UPDATE_SUCCESS, PRODUCT_CREATE_REVIEW_REQUEST, PRODUCT_CREATE_REVIEW_SUCCESS, PRODUCT_CREATE_REVIEW_FAILURE, TOP_PRODUCT_REQUEST, TOP_PRODUCT_SUCCESS, TOP_PRODUCT_FAILURE } from "./types";
 
 
 export const listProducts = (keyword='',pageNumber='') => async (dispatch) => {
@@ -71,5 +71,15 @@ export const createReview = (id,review) => async(dispatch,getState) => {
         dispatch({type: PRODUCT_CREATE_REVIEW_SUCCESS})   
     }catch(err){
         dispatch({type: PRODUCT_CREATE_REVIEW_FAILURE, payload: err})
+    }
+}
+
+export const listTopProducts = () => async(dispatch) => {
+    try{
+        dispatch({type: TOP_PRODUCT_REQUEST})
+        const {data} = await axios.get('http://localhost:8080/api/products/top')
+        dispatch({type: TOP_PRODUCT_SUCCESS,payload: data})
+    }catch(err){
+        dispatch({type: TOP_PRODUCT_FAILURE, payload: err})
     }
 }

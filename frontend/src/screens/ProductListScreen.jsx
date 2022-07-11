@@ -8,7 +8,7 @@ import {Link } from "react-router-dom"
 
 const ProductListScreen = ({history, match}) => {
     const dispatch = useDispatch()
-    const {loading, error, products} = useSelector(state => state.productList)
+    const {loading, error, products, page, pages} = useSelector(state => state.productList)
     const {userInfo} = useSelector(state => state.userLogin)
     const {success: successDelete, loading: loadingDelete, error: errorDelete} = useSelector(state => state.productDelete)
     useEffect(() => {
@@ -41,7 +41,7 @@ const ProductListScreen = ({history, match}) => {
             {loadingDelete && <Loader />}
             {errorDelete && <Message variant="danger" message={errorDelete} />}
             {loading ? <Loader /> : error ? <Message variant='danger' message={error} /> : (
-                <Table striped responsive bordered hover className="table-sm">
+                <><Table striped responsive bordered hover className="table-sm">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -74,6 +74,8 @@ const ProductListScreen = ({history, match}) => {
                         ))}
                     </tbody>
                 </Table>
+                
+                </>
             )}
         </>
     )

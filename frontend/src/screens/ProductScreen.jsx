@@ -7,6 +7,8 @@ import { listProductDetails,createReview } from "../actions/productActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { PRODUCT_CREATE_REVIEW_RESET } from "../actions/types";
+import Meta from "../components/Meta";
+
 const ProductScreen = ({history, match}) => {
     const [qty,setQty] = useState(0);
     const [comment,setComment] = useState('');
@@ -44,7 +46,9 @@ const ProductScreen = ({history, match}) => {
     }, [dispatch,match.params.id,successCreateReview])
     return(
         <>
-            {loading ? <Loader /> : error ? <Message msg={error} /> : <><Link className="btn btn-light text-black my-3" to="/">Go Back</Link>
+            {loading ? <Loader /> : error ? <Message msg={error} /> : <>
+            <Meta title={product.name} />
+            <Link className="btn btn-light text-black my-3" to="/">Go Back</Link>
             <Row className="py-3">
                 <Col md={6}>
                     <Image src={product.image} alt={product.name} fluid style={{borderRadius: "2%"}} />
@@ -114,7 +118,7 @@ const ProductScreen = ({history, match}) => {
             <Row>
                 <Col md={6}>
                     <h2>Reviews</h2>
-                    {product.reviews.length === 0 && <Message message="No Reviews" />}
+                    {product.reviews.length === 0 && <Message variant='info' message="No Reviews" />}
                     <ListGroup variant='flush'>
                         {product.reviews.map(review => <ListGroup.Item key={review._id}>
                             <strong>{review.name}</strong>

@@ -18,6 +18,7 @@ import UserListScreen from "../screens/UserListScreen";
 import UserEditScreen from "../screens/UserEditScreen";
 import ProductListScreen from "../screens/ProductListScreen";
 import ProductEditScreen from "../screens/ProductEditScreen"
+import OrderListScreen from "../screens/OrderListScreen";
 
 class App extends React.Component{
     render(){
@@ -43,6 +44,7 @@ class App extends React.Component{
                     <Route path="/search/:keyword" component={HomeScreen} exact />
                     <Route path="/page/:pageNumber" component={HomeScreen} exact />
                     <Route path="/search/:keyword/page/:pageNumber" component={HomeScreen} exact />
+                    <Route path='/admin/orderlist' component={OrderListScreen} />
                   </Container>
                 </main>
                 <Footer />

@@ -1,4 +1,4 @@
-import { PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_DELETE_REQUEST, PRODUCT_DETAIL_SUCCESS, PRODUCT_DELETE_FAILURE } from "../actions/types"
+import { PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_DELETE_REQUEST, PRODUCT_DETAIL_SUCCESS, PRODUCT_DELETE_FAILURE, TOP_PRODUCT_REQUEST, TOP_PRODUCT_SUCCESS, TOP_PRODUCT_FAILURE } from "../actions/types"
 
 const initState = {
     products: [],
@@ -35,6 +35,19 @@ export const productDeleteReducer = (state = {},action) => {
                 loading: false,
                 error: action.payload
             }
+        default:
+            return state
+    }
+}
+
+export const productTopRatedReducer = (state={products: []},action) => {
+    switch(action.type){
+        case TOP_PRODUCT_REQUEST:
+            return {loading: true, products: []}
+        case TOP_PRODUCT_SUCCESS:
+            return {loading: false, products: action.payload}
+        case TOP_PRODUCT_FAILURE:
+            return {loading: false, error: action.payload}
         default:
             return state
     }
