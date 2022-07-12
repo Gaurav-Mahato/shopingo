@@ -69,7 +69,7 @@ const ProductEditScreen = ({match,history}) => {
             'Content-Type': 'multipart/form-data'
           }
         }
-        const {data} = await axios.post('http://localhost:8080/api/upload', formData, config)
+        const {data} = await axios.post('https://mighty-savannah-06065.herokuapp.com/api/upload', formData, config)
         setImage(data)
         setUploading(false)
       }

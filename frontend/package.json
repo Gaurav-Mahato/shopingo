@@ -1,6 +1,6 @@
 {
   "name": "shopingo",
-  "proxy": "http://localhost:8080",
+  "proxy": "https://mighty-savannah-06065.herokuapp.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
