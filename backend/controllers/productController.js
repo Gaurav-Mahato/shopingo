@@ -26,6 +26,22 @@ const getProductById = asyncHandler(async(req,res) => {
     }
 })
 
+const createProduct = asyncHandler(async(req,res) => {
+    const product = new Product({
+        name: 'Sample name',
+        brand: 'Sample brand',
+        price: 0,
+        user: req.user._id,
+        category: 'Sample category',
+        image: "/images/sample.jpg",
+        description: 'Sample description',
+        numReviews: 0,
+        countInStocks: 0
+    })
+    const createdProduct = await product.save()
+    res.status(201).json(createdProduct)
+})
+
 const deleteProduct = asyncHandler(async(req,res) => {
     const product = await Product.findById(req.params.id)
     if(product){
@@ -91,4 +107,4 @@ const getTopProducts = asyncHandler(async(req,res) => {
     res.json(products)
 })
 
-export {getProducts, getProductById, deleteProduct, updateProduct,getTopProducts, createProductReview}
+export {getProducts, getProductById, deleteProduct, updateProduct,getTopProducts, createProductReview, createProduct}

@@ -13,7 +13,7 @@ export const SearchBox = ({history}) => {
   }
     return (
     <>
-        <Form onSubmit={submitHandler} inline style={{display: 'flex', marginLeft: '120px'}}>
+        <Form onSubmit={submitHandler} inline="true" style={{display: 'flex', marginLeft: '120px'}}>
             <Form.Control type='text' placeholder='Search Products...' onChange={(e) => setKeyword(e.target.value)}
                 className='mr-sm-2 ml-sm-5' 
             ></Form.Control>

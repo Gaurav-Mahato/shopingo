@@ -17,9 +17,10 @@ if(process.env.NODE_ENV === 'development'){
     app.use(morgan('dev'))
 }
 connectDB();
-const __dirname = path.resolve()
+
 app.use(cors());
 app.use(express.json())
+const __dirname = path.resolve()
 app.use('/uploads',express.static(path.join(__dirname,'/uploads')))
 
 app.use("/api/products", productRoutes);
@@ -30,6 +31,6 @@ app.use("/api/upload",uploadRoutes)
 app.use(notFound);
 app.use(errorHandler);
 
-app.listen(8080, ()=>{
+app.listen(process.env.PORT || 8080, ()=>{
     console.log(`Server running at port ${process.env.PORT}`);
 });
