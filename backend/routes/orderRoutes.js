@@ -1,4 +1,4 @@
-import { addOrderItems, getMyOrders, getOrderById, getOrders, updateOrderToPaid } from "../controllers/orderController.js";
+import { addOrderItems, getMyOrders, getOrderById, getOrders, updateOrderToDelivered, updateOrderToPaid } from "../controllers/orderController.js";
 import {admin, protect} from "../middleware/authMiddleware.js";
 import express from "express"
 
@@ -8,6 +8,7 @@ router.route("/myorders").get(protect,getMyOrders)
 router.route("/").post(protect,addOrderItems).get(protect,admin,getOrders)
 router.route("/:id").get(protect,getOrderById)
 router.route("/:id/pay").get(protect, updateOrderToPaid)
+router.route("/:id/deliver").put(protect,admin,updateOrderToDelivered)
 
 
 export default router

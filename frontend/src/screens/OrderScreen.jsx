@@ -4,16 +4,20 @@ import Message from "../components/Message";
 import Loader from "../components/Loader"
 import {useDispatch, useSelector} from "react-redux"
 import { Link } from "react-router-dom";
-import { getOrderDetails, payOrder } from "../actions/orderActions";
-import { ORDER_PAY_RESET } from "../actions/types";
+import { getOrderDetails, payOrder, deliverOrder } from "../actions/orderActions";
+import { ORDER_PAY_RESET, ORDER_DELIVER_RESET } from "../actions/types";
 
-const OrderScreen = ({match}) => {
+const OrderScreen = ({match,history}) => {
     const orderId = match.params.id
     const dispatch = useDispatch()
     const orderDetails = useSelector(state => state.orderDetails)
     const {order, loading, error} = orderDetails
     const orderPay = useSelector(state => state.orderPay)
-    const {success} = orderPay 
+    const {success} = orderPay
+    const orderDeliver = useSelector(state => state.orderDeliver)
+    const {success: successDeliver, loading: loadingDeliver} = orderDeliver 
+    const userLogin = useSelector(state => state.userLogin)
+    const {userInfo} = userLogin
     const addDecimals = (num) => {
         return Math.round((num*100)/100).toFixed(2)
     }  
@@ -23,13 +27,20 @@ const OrderScreen = ({match}) => {
         )
     }
     useEffect(() => {
-        if(!order || order._id !== orderId || success) {
+        if(!userInfo){
+            history.push("/login")
+        }
+        if(!order || order._id !== orderId || success || successDeliver) {
             dispatch({type: ORDER_PAY_RESET})
+            dispatch({type: ORDER_DELIVER_RESET})
             dispatch(getOrderDetails(orderId))
         }
-    }, [order, orderId,success]) 
+    }, [order, orderId,success,successDeliver]) 
     const successPaymentHandler = () => {
         dispatch(payOrder(orderId))
+    }
+    const deliverHandler = () => {
+        dispatch(deliverOrder(order))
     }
     return loading ? <Loader /> : error ? <Message variant="danger" message={error} /> : <>
         <h1>Order {orderId}</h1>
@@ -109,6 +120,12 @@ const OrderScreen = ({match}) => {
                           {!order.isPaid && <ListGroup.Item>
                             <Button onClick={successPaymentHandler}>Pay ${addDecimals(order.totalPrice)}</Button>
                           </ListGroup.Item>}
+                          {loadingDeliver && <Loader />}
+                          {userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                            <ListGroup.Item>
+                                <Button type='button' className='btn btn-block' onClick={deliverHandler}>Mark As Delivered</Button>
+                            </ListGroup.Item>
+                          )}
                       </ListGroup>
                   </Card>
               </Col>

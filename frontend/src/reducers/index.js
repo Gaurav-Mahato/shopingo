@@ -3,7 +3,7 @@ import {productListReducer, productDeleteReducer, productTopRatedReducer} from "
 import {productCreateReviewReducer, productDetailsReducer, productUpdateReducer} from "./productDetailReducer";
 import { cartReducer } from "./cartReducer";
 import { userLoginReducer, userRegisterReducer, userDetailsReducer, userProfileUpdateReducer, userListReducer, userDeleteReducer, userUpdateReducer } from "./userReducer";
-import { orderCreateReducer, orderDetailsReducer, orderListReducer, orderMyListReducer, orderPayReducer } from "./orderReducer";
+import { orderCreateReducer, orderDeliverReducer, orderDetailsReducer, orderListReducer, orderMyListReducer, orderPayReducer } from "./orderReducer";
 
 export default combineReducers({
     productList: productListReducer,
@@ -24,5 +24,6 @@ export default combineReducers({
     productUpdate: productUpdateReducer,
     productCreateReview: productCreateReviewReducer,
     productTopRated: productTopRatedReducer,
-    orderList: orderListReducer
+    orderList: orderListReducer,
+    orderDeliver: orderDeliverReducer
 })
