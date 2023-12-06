@@ -5,7 +5,10 @@ import { addToCart,removeFromCart } from "../actions/cartActions";
 import {Row,Col,ListGroup,Form,Card,Image,Button} from "react-bootstrap"
 import Message from "../components/Message"
 
+// product - need global update 
+// cart - 
 const CartScreen = ({history, match,location}) => {
+    
     const productsId = match.params.id;
     const qty = location.search ? Number(location.search.split('=')[1]) : 1;
     const dispatch = useDispatch();

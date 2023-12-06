@@ -13,7 +13,7 @@ export const createOrder = (order) => async(dispatch, getState) => {
                 Authorization: `Bearer ${userInfo.token}`
             }
         }
-        const {data} = await axios.post(`https://mighty-savannah-06065.herokuapp.com/api/orders`,order,config)
+        const {data} = await axios.post(`http://localhost:8080/api/orders`,order,config)
         dispatch({
             type: ORDER_CREATE_SUCCESS,
             payload: data
@@ -34,7 +34,7 @@ export const getOrderDetails = (id) => async(dispatch, getState) => {
                 Authorization: `Bearer ${userInfo.token}`
             }
         }
-        const {data} = await axios.get(`https://mighty-savannah-06065.herokuapp.com/api/orders/${id}`,config)
+        const {data} = await axios.get(`http://localhost:8080/api/orders/${id}`,config)
         dispatch({
             type: ORDER_DETAILS_SUCCESS,
             payload: data
@@ -55,7 +55,7 @@ export const payOrder = (orderID) => async(dispatch, getState) => {
                 Authorization: `Bearer ${userInfo.token}`
             }
         }
-        const {data} = await axios.get(`https://mighty-savannah-06065.herokuapp.com/api/orders/${orderID}/pay`,config)
+        const {data} = await axios.get(`http://localhost:8080/api/orders/${orderID}/pay`,config)
         dispatch({
             type: ORDER_PAY_SUCCESS,
             payload: data
@@ -75,7 +75,7 @@ export const listMyOrders = () => async(dispatch,getState) => {
                 Authorization: `Bearer ${userInfo.token}`
             }
         }
-        const {data} = await axios.get('https://mighty-savannah-06065.herokuapp.com/api/orders/myorders',config)
+        const {data} = await axios.get('http://localhost:8080/api/orders/myorders',config)
         dispatch({type: ORDER_MY_LIST_SUCCESS, payload: data})
     }catch(error){
         dispatch({type: ORDER_MY_LIST_FAILURE, payload: error})
@@ -91,7 +91,7 @@ export const listOrders = () => async(dispatch,getState) => {
                 Authorization: `Bearer ${userInfo.token}`
             }
         }
-        const {data} = await axios.get('https://mighty-savannah-06065.herokuapp.com/api/orders',config)
+        const {data} = await axios.get('http://localhost:8080/api/orders',config)
         dispatch({type: ORDER_LIST_SUCCESS, payload: data})
     }catch(err){
         dispatch({type: ORDER_LIST_FAILURE, payload: err})
@@ -108,7 +108,7 @@ export const deliverOrder = (order) => async(dispatch, getState) => {
                 Authorization: `Bearer ${userInfo.token}`
             }
         }
-        const {data} = await axios.put(`https://mighty-savannah-06065.herokuapp.com/api/orders/${order._id}/deliver`,{},config)
+        const {data} = await axios.put(`http://localhost:8080/api/orders/${order._id}/deliver`,{},config)
         dispatch({
             type: ORDER_DELIVER_SUCCESS,
             payload: data
